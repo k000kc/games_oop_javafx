@@ -20,4 +20,23 @@ public class LogicTest {
         });
         assertThat(exception.getMessage()).isEqualTo("Figure not found on the board.");
     }
+
+    @Test
+    public void whenCellOccupied() {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.add(new BishopBlack(Cell.G5));
+        OccupiedCellException exeption = assertThrows(
+                OccupiedCellException.class,
+                () -> logic.move(Cell.C1, Cell.H6));
+        assertThat(exeption.getMessage()).isEqualTo("Occupied Cell");
+    }
+
+    @Test
+    public void when() throws FigureNotFoundException, OccupiedCellException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.move(Cell.C1, Cell.G5);
+        assertThat(Cell.G5).isNotNull();
+    }
 }
